@@ -2,24 +2,18 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from dataclasses import dataclass
+from abc import abstractmethod
 
 from alts.core.experiment_module import ExperimentModule
-from alts.core.subscriber import ExpModSubscriber
 
 
 if TYPE_CHECKING:
-    from alts.core.subscribable import Subscribable
     from alts.core.data.data_pools import ResultDataPools
 
 
+class DependencyTest(ExperimentModule):
 
-@dataclass
-class DependencyTest(ExperimentModule, ExpModSubscriber):
-
-    def experiment_update(self, subscription: Subscribable):
-        super().experiment_update(subscription)
-        t,p = self.test()
-
+    @abstractmethod
     def test(self):
         raise NotImplementedError()
     

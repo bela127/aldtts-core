@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from scipy.stats import kruskal #type: ignore
 
-from alts.core.data_sampler import DataSampler
+from alts.core.data.data_sampler import DataSampler
 from alts.core.configuration import Configurable
 
 if TYPE_CHECKING:
