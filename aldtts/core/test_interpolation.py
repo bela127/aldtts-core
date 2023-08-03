@@ -5,10 +5,9 @@ from typing import TYPE_CHECKING
 from dataclasses import dataclass
 
 import numpy as np
-from alts.core.data.data_pool import DataPool
-
 from alts.core.experiment_module import ExperimentModule
-from alts.core.queryable import Queryable
+from alts.core.query.queryable import Queryable
+from alts.core.configuration import init
 
 if TYPE_CHECKING:
     from typing_extensions import Self #type: ignore
@@ -19,10 +18,9 @@ if TYPE_CHECKING:
 
 
 @dataclass
-class TestInterpolator(Queryable, ExperimentModule):
-    test: TwoSampleTest
+class TestInterpolator(ExperimentModule, Queryable):
+    test: TwoSampleTest = init()
 
-    def __call__(self, exp_modules: ExperimentModules = None, **kwargs) -> Self:
-        obj = super().__call__(exp_modules, **kwargs)
-        obj.test = obj.test()
-        return obj
+    def post_init(self):
+        super().post_init()
+        self.test = self.test()
