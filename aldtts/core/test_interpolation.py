@@ -3,6 +3,7 @@ from abc import abstractproperty
 from typing import TYPE_CHECKING
 
 from dataclasses import dataclass
+from alts.core.data.constrains import QueryConstrain
 
 import numpy as np
 from alts.core.experiment_module import ExperimentModule
@@ -24,3 +25,6 @@ class TestInterpolator(ExperimentModule, Queryable):
     def post_init(self):
         super().post_init()
         self.test = self.test()
+
+    def query_constrain(self) -> QueryConstrain:
+        return self.oracles.query_constrain()
